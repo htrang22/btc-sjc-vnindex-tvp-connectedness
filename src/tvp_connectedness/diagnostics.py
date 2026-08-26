@@ -36,3 +36,18 @@ def unstable_episodes(table: pd.DataFrame) -> pd.DataFrame:
             }
         )
     return pd.DataFrame(records)
+
+
+def instability_context(
+    table: pd.DataFrame,
+    tci: pd.Series,
+    net: pd.DataFrame,
+) -> pd.DataFrame:
+    """Combine unstable dates with connectedness measures for interpretation."""
+    if not table.index.equals(tci.index) or not table.index.equals(net.index):
+        raise ValueError("stability and connectedness indices must match")
+    context = table.loc[~table["stable"]].copy()
+    context["TCI"] = tci.loc[context.index]
+    for variable in net.columns:
+        context[f"NET_{variable}"] = net.loc[context.index, variable]
+    return context

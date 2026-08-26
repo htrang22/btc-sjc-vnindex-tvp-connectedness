@@ -22,8 +22,13 @@ TVP-VAR là **extension/alternative specification**, không thay thế static VA
 |---|---:|---:|---:|---:|---|
 | `baseline_0999` | 0.999 | 0.96 | 1 | 10 | Baseline |
 | `robustness_0997` | 0.997 | 0.96 | 1 | 10 | Robustness |
+| `kappa_094` | 0.999 | 0.94 | 1 | 10 | κσ sensitivity |
+| `kappa_098` | 0.999 | 0.98 | 1 | 10 | κσ sensitivity |
+| `horizon_05` | 0.999 | 0.96 | 1 | 5 | Horizon sensitivity |
+| `horizon_20` | 0.999 | 0.96 | 1 | 20 | Horizon sensitivity |
 
-Mọi tham số ngoài `λβ` được giữ cố định để comparison có ý nghĩa.
+Trong từng sensitivity check, chỉ tham số đang được kiểm tra thay đổi; các tham
+số còn lại được giữ cố định.
 
 ## Cấu trúc
 
@@ -43,7 +48,13 @@ btc-sjc-vnindex-tvp-connectedness/
 ├── outputs/
 │   ├── baseline_0999/
 │   ├── robustness_0997/
+│   ├── kappa_094/
+│   ├── kappa_098/
+│   ├── horizon_05/
+│   ├── horizon_20/
 │   └── specification_comparison.csv
+├── scripts/
+│   └── rebuild_model2_input.py
 ├── tests/
 ├── run_analysis.py
 ├── pyproject.toml
@@ -64,8 +75,22 @@ pip install -e ".[dev]"
 python run_analysis.py
 ```
 
-Lệnh này chạy hai specifications độc lập, in bảng comparison và lưu TCI, FROM,
-TO, NET, stability cùng unstable episodes vào `outputs/`.
+Lệnh này chạy sáu specifications độc lập, in bảng comparison và lưu TCI, FROM,
+TO, NET, stability, từng unstable observation và unstable episodes vào
+`outputs/`.
+
+## Chạy notebook từ kernel sạch
+
+Trong Jupyter chọn **Kernel → Restart Kernel and Run All Cells**, hoặc chạy:
+
+```bash
+python -m jupyter nbconvert \
+  --to notebook --execute --inplace \
+  notebooks/model_comparison.ipynb
+```
+
+Notebook trong repo đã được restart và chạy toàn bộ từ đầu sau khi thêm các
+robustness checks.
 
 ## Chạy tests
 
@@ -111,9 +136,42 @@ thái kernel như khi toàn bộ pipeline được viết nối tiếp bằng nh
 SJC và VN-Index được tạo từ bước ARMA–EGARCH trong nghiên cứu gốc. File được
 đưa sang repository này để mô hình TVP-VAR có thể chạy độc lập.
 
+Để tái tạo lại CSV từ notebook nguồn mà không sửa repo bài đã nộp:
+
+```bash
+python scripts/rebuild_model2_input.py /path/to/btc-sjc-vnindex-risk-analysis
+```
+
+Script chạy notebook nguồn trong kernel mới và chuyển cell export sang
+`data/model2_conditional_volatility.csv` của repo này. Lần kiểm tra hiện tại cho
+checksum trùng khớp với CSV đã lưu; xem `DATA_PROVENANCE.md`.
+
 ## Diễn giải robustness hiện tại
 
 Hai specifications giữ nguyên kết luận trung bình toàn mẫu: BTC và SJC là net
 transmitters, còn VN-Index là net receiver. Tuy nhiên, vai trò cuối mẫu nhạy hơn
 với `λβ`, đặc biệt đối với VN-Index. Baseline `0.999` cũng có tỷ lệ local
 stability cao hơn, nên tiếp tục được dùng làm specification chính.
+
+Sensitivity của `κσ` cho thấy vai trò trung bình vẫn giữ nguyên, nhưng mức TCI
+nhạy với tốc độ cập nhật covariance. Mean TCI lần lượt là 9,4555%, 7,9241% và
+5,9812% với `κσ=0.94, 0.96, 0.98`.
+
+Horizon sensitivity cho thấy connectedness tích lũy tăng theo kỳ dự báo: Mean
+TCI là 5,0289%, 7,9241% và 13,2622% tại `H=5, 10, 20`.
+
+## Local stability
+
+Baseline có 14/747 quan sát với spectral radius ≥ 1, tập trung thành ba episode:
+
+| Bắt đầu | Kết thúc | Số quan sát | Max radius |
+|---|---|---:|---:|
+| 29/11/2023 | 29/11/2023 | 1 | 1,0134 |
+| 26/12/2023 | 10/01/2024 | 11 | 1,0269 |
+| 15/01/2024 | 16/01/2024 | 2 | 1,0030 |
+
+TCI trung bình trong các ngày local instability là 14,7108%, so với 7,7945%
+trong các ngày stable. Các điểm vượt unit circle vì vậy không rải ngẫu nhiên mà
+tập trung quanh một giai đoạn connectedness cao. Do GFEVD được tính tại horizon
+hữu hạn, các episode này được giữ lại và báo cáo minh bạch như một diagnostic;
+không được diễn giải như bằng chứng rằng mô hình ổn định vô điều kiện.

@@ -27,6 +27,10 @@ class PipelineRegressionTests(unittest.TestCase):
 
         self.assertEqual(len(result.stability), 747)
         self.assertEqual(int((~result.stability["stable"]).sum()), 14)
+        self.assertEqual(result.episodes["duration"].tolist(), [1, 11, 2])
+        unstable_tci = result.connectedness.tci.loc[~result.stability["stable"]]
+        stable_tci = result.connectedness.tci.loc[result.stability["stable"]]
+        self.assertGreater(unstable_tci.mean(), stable_tci.mean())
         self.assertTrue(
             np.isclose(result.connectedness.tci.mean(), 7.92412042378382)
         )

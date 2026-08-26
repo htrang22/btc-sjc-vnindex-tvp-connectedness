@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from .diagnostics import instability_context
 from .pipeline import SpecificationResult, compare_specifications
 
 
@@ -35,6 +36,11 @@ def save_results(result: SpecificationResult, directory: str | Path) -> None:
     result.connectedness.net.to_csv(output / "net.csv")
     result.stability.to_csv(output / "stability.csv")
     result.episodes.to_csv(output / "unstable_episodes.csv", index=False)
+    instability_context(
+        result.stability,
+        result.connectedness.tci,
+        result.connectedness.net,
+    ).to_csv(output / "unstable_observations.csv")
     result.summary().to_frame("value").to_csv(output / "summary.csv")
 
 
