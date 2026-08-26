@@ -12,4 +12,12 @@ File gồm 747 quan sát conditional volatility của BTC, vàng SJC và VN-Inde
 trong repository mới để các TVP-VAR specifications có thể chạy độc lập và cho
 kết quả có thể tái lập.
 
-Repository mới không sửa hoặc ghi ngược kết quả vào repository bài tập đã nộp.
+Ngày 26/08/2026, notebook nguồn đã được chạy lại từ kernel sạch bằng
+`scripts/rebuild_model2_input.py`. Cell export được chuyển hướng sang repo mới
+để không sửa repository bài đã nộp. File tái tạo có SHA-256:
+
+```text
+2a568ac70f1db0e34d9aa418e20bca899c04693a4071d6545e5e6086bd458a0c
+```
+
+Checksum này trùng với CSV đã được chuyển sang repo mới trước đó.
