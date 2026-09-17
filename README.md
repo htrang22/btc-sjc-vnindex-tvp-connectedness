@@ -47,15 +47,12 @@ Mô hình VAR cố định gộp toàn bộ giai đoạn thành một hệ tham 
 Điều này cho thấy BTC chuyển từ transmitter trung bình toàn mẫu sang receiver tại cuối mẫu, còn SJC duy trì vai trò transmitter và VN-Index vẫn là receiver. Đối chiếu này làm rõ đóng góp của TVP-VAR: bổ sung chiều thời gian và nhận diện sự chuyển đổi vai trò mà ước lượng VAR cố định không được thiết kế để thể hiện.
 
 BTC: từ transmitter → receiver
-Trong phần lớn giai đoạn mẫu, BTC là kênh phát tán rủi ro/biến động ra các tài sản khác — phù hợp với vai trò một tài sản đầu cơ có tính dẫn dắt tâm lý thị trường, đặc biệt trong các giai đoạn biến động mạnh (ví dụ các đợt tăng/giảm giá mạnh mang tính toàn cầu, nơi crypto thường là nơi "châm ngòi" biến động rồi lan sang tài sản khác qua kênh tâm lý nhà đầu tư, thanh khoản, risk-on/risk-off).
+Trong phần lớn giai đoạn mẫu, BTC là kênh phát tán biến động ra các tài sản khác về mặt thống kê. Có thể diễn giải do tính chất giao dịch liên tục 24/7 và phản ứng nhanh với các yếu tố vĩ mô toàn cầu (thanh khoản USD, kỳ vọng lãi suất, tâm lý risk-on/risk-off toàn cầu) mà BCT đóng vai trò như một chỉ báo sớm của biến động vĩ mô, các yếu tố này sau đó cũng ảnh hưởng đến tỷ giá, giá vàng trong nước, dòng vốn ngoại vào VN-Index với độ trễ khác nhau. 
 
-Việc BTC chuyển sang receiver ở cuối mẫu có thể phản ánh:
-
-* BTC đang trong giai đoạn thị trường ổn định/trưởng thành hơn, ít còn là "nguồn cú sốc" mà bắt đầu phản ứng thụ động theo biến động từ các thị trường tài chính truyền thống (ví dụ dòng vốn toàn cầu, chính sách tiền tệ, hoặc biến động của VN-Index/vàng tác động ngược lại crypto qua kênh thanh khoản/risk sentiment).
-* Vai trò của BTC trong hệ thống tài chính có tính không ổn định theo thời gian — đúng như tinh thần TVP-VAR muốn nhấn mạnh: BTC không phải lúc nào cũng là "rủi ro hệ thống" cố định, mà tùy giai đoạn.
+Tuy nhiên BTC chuyển sang receiver ở cuối mẫu chứng tỏ mối liên kết giữa BTC và các tài sản khác không cố định.
 
 SJC (vàng): duy trì vai trò transmitter
-Vàng trong nước tiếp tục là nguồn phát tán biến động ổn định xuyên suốt — phù hợp với vai trò truyền thống của vàng như một "tài sản neo" phản ứng với các cú sốc vĩ mô (tỷ giá, lạm phát, bất ổn địa chính trị) rồi truyền ảnh hưởng sang các tài sản khác qua kỳ vọng của nhà đầu tư trong nước. Việc vai trò này không đổi theo thời gian cho thấy vàng có vị trí tương đối bền vững, ít nhạy với các chu kỳ ngắn hạn của thị trường crypto hay chứng khoán.
+Vàng trong nước tiếp tục là nguồn phát tán biến động ổn định xuyên suốt - phù hợp với vai trò truyền thống của vàng như một "tài sản neo" phản ứng với các cú sốc vĩ mô (tỷ giá, lạm phát, bất ổn địa chính trị) rồi truyền ảnh hưởng sang các tài sản khác qua kỳ vọng của nhà đầu tư trong nước. Việc vai trò này không đổi theo thời gian cho thấy vàng có vị trí tương đối bền vững, ít nhạy với các chu kỳ ngắn hạn của thị trường crypto hay chứng khoán.
 
 VN-Index: duy trì vai trò receiver
 Chứng khoán Việt Nam liên tục là bên tiếp nhận biến động - hàm ý thị trường chứng khoán trong nước dễ bị ảnh hưởng bởi các cú sốc từ bên ngoài (vàng, crypto, hoặc gián tiếp là dòng vốn/tâm lý toàn cầu) hơn là chủ động lan tỏa rủi ro ra các thị trường khác. Điều này phù hợp với đặc điểm một thị trường mới nổi, quy mô vốn hóa còn nhỏ so với dòng vốn toàn cầu, nên thường ở vị thế "hấp thụ" cú sốc.
